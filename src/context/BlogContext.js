@@ -1,20 +1,27 @@
-import React, {useState} from 'react';
+import React, {useReducer} from 'react';
 
 const BlogContext = React.createContext();
 
+const BlogReducer = (state, action) => {
+    switch (action.type) {
+        case 'add_blogpost' : 
+            return [...state, {title: `Blog post #${state.length + 1}`}];
+        default :
+            return state;
+    }
+};
+
 export const BlogProvider = ({children}) => {
 
-    const [blogPosts, setBlogPosts] = useState([]);
+    const [blogPosts, dispatch] = useReducer(BlogReducer, []);
 
     const addBlogPost = () => {
-        //This refreshes the state every time blog post is invoked. 
-        //The '...' means to restore everything in that blogPost from the previous state
-        //The next argument is the actual item to be added, in this case adding the blog post title to be dynamic
-        setBlogPosts([...blogPosts, { title: `Blog Post #${blogPosts.length + 1}`}]);
+        dispatch ({type: 'add_blogpost'});
     };
 
+
     return (
-        <BlogContext.Provider value = {{data: blogPosts, addBlogPost: addBlogPost}}>
+        <BlogContext.Provider value = {{data: blogPosts, addBlogPost}}>
             {children}
         </BlogContext.Provider>
     );
@@ -22,4 +29,4 @@ export const BlogProvider = ({children}) => {
 
 export default BlogContext;
 
-//Note that you can't render an object text within <Text> in React.
+//Note that you can't render an object text within <Text> in React. So render this within a flatlist object.
