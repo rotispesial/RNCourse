@@ -1,6 +1,5 @@
 import React, {useReducer} from 'react';
-
-const BlogContext = React.createContext();
+import createDataContext from './createDataContext';
 
 const BlogReducer = (state, action) => {
     switch (action.type) {
@@ -11,22 +10,14 @@ const BlogReducer = (state, action) => {
     }
 };
 
-export const BlogProvider = ({children}) => {
-
-    const [blogPosts, dispatch] = useReducer(BlogReducer, []);
-
-    const addBlogPost = () => {
-        dispatch ({type: 'add_blogpost'});
-    };
-
-
-    return (
-        <BlogContext.Provider value = {{data: blogPosts, addBlogPost}}>
-            {children}
-        </BlogContext.Provider>
-    );
+const addBlogPost = () => {
+    dispatch ({type: 'add_blogpost'});
 };
 
-export default BlogContext;
+export const { Context, Provider } = createDataContext(
+    blogReducer, 
+    {addBlogPost},
+    []
+);
 
 //Note that you can't render an object text within <Text> in React. So render this within a flatlist object.
