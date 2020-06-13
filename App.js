@@ -3,7 +3,7 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 
 import IndexScreen from './src/screens/IndexScreen';
-import { BlogProvider } from './src/context/BlogContext';
+import { Provider } from './src/context/BlogContext';
 
 const navigator = createStackNavigator({
 
@@ -23,7 +23,7 @@ const App = createAppContainer(navigator);
 //This is the wrapper. Context is created from the Blog Provider.
 //Context is like props, but where props addresses inheritance to the next level, Context is for next levels below.
 export default () => {
-    return <BlogProvider>
+    return <Provider>
         <App />
-    </BlogProvider>
+    </Provider>
 };
