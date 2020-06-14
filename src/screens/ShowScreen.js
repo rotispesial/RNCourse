@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { Context } from '../context/BlogContext';
 
-const ShowScreen = () => {
+const ShowScreen = ( {navigation} ) => {
 
-    return <View>
-        <Text>This is the Show Screen</Text>
-    </View>
+    const  { state } = useContext();
 
+    const blogPost = state.find(
+        (blogPost) => blogPost.id === navigation.getParam('id')
+    );
+
+    return (
+        <View>
+            <Text>{blogPost.title}</Text>
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({});
