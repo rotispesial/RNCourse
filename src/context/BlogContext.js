@@ -15,8 +15,9 @@ const blogReducer = (state, action) => {
 };
 
 const addBlogPost = dispatch => {
-    return() => {
-        dispatch ({type: 'add_blogpost'});
+    return(title, content) => {
+        //The long version of the second arguments are title: title, content: content
+        dispatch ({type: 'add_blogpost', payload: {title, content}});
     };
 };
 
