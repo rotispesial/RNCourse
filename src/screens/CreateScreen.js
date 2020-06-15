@@ -7,14 +7,16 @@ const CreateScreen = ( {navigation} ) => {
     const [title, setTitle] = useState('');
 
     const [content, setContent] = useState('');
+
+    const {addBlogPost} = useContext(Context);
  
     return (
         <View>
             <Text style = {styles.labelStyle}>Enter title</Text>
             <TextInput 
-                value = {title} 
-                onChangeText = {(text) => setTitle(text)} 
                 style = {styles.inputStyle}
+                value = {title} 
+                onChangeText = {(text) => setTitle(text)}   
             />
             <Text style = {styles.labelStyle}>Content Body: </Text>
             <TextInput 
@@ -23,8 +25,13 @@ const CreateScreen = ( {navigation} ) => {
                 style = {styles.inputStyle}
             />
             <Button 
-                title="Add Post"
+                title="Save Blog Post"
                 style={styles.buttonStyle}
+                onPress = {() => {
+                    addBlogPost(title, content, () => {
+                        navigation.navigate('Index');
+                    });
+                }}
             />
         </View>
     );

@@ -5,11 +5,10 @@ import { Feather } from '@expo/vector-icons';
 
 const IndexScreen = ({navigation}) => {
 
-    const {state, addBlogPost, deleteBlogPost} = useContext(Context);
+    const {state, deleteBlogPost} = useContext(Context);
 
     return (
         <View>
-            <Button title= "Add Post" onPress={addBlogPost}/>
             <FlatList 
                 data = {state}
                 keyExtractor = {blogPost => blogPost.title}
@@ -17,7 +16,7 @@ const IndexScreen = ({navigation}) => {
                     return (
                         <TouchableOpacity onPress = {() => navigation.navigate('Show', { id: item.id })}>
                             <View style={styles.row}>
-                                <Text style={styles.titleStyle}>{item.title} - {item.id}</Text>
+                                <Text style={styles.titleStyle}>Title: {item.title} ID: {item.id}</Text>
                                 <TouchableOpacity onPress = {() => deleteBlogPost(item.id)}>
                                     <Feather name = "trash" style ={styles.iconStyle}/>
                                 </TouchableOpacity>
@@ -31,16 +30,6 @@ const IndexScreen = ({navigation}) => {
 };
 
 //For some reason the plus in the index screen isn't working
-
-IndexScreen.navigationOptions = ({ navigation }) => {
-    return {
-        headerRight: () => (
-          <TouchableOpacity onPress={() => navigation.navigate('Create')}>
-            <Feather name="plus" size={30} />
-          </TouchableOpacity>
-        ),
-      };
-};
 
 IndexScreen.navigationOptions = ({ navigation }) => {
   return {
