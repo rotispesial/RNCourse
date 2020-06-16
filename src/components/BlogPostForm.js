@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
 
-const BlogPostForm = ({ onSubmit }) => {
+const BlogPostForm = ({ onSubmit, initialValues }) => {
 
-    const [title, setTitle] = useState('');
+    const [title, setTitle] = useState(initialValues.title);
 
-    const [content, setContent] = useState('');
+    const [content, setContent] = useState(initialValues.content);
 
     return (
         <View>
@@ -29,6 +29,17 @@ const BlogPostForm = ({ onSubmit }) => {
     );
 
 };
+
+//This is some default property values so that the app doesn't crash when initialValue is called in other screens.
+//e.g. CreateScreen
+//React will automatically check if we have this. If we do, then it will automatically use this.
+
+BlogPostForm.defaultProps = {
+    initialValues: {
+        title: '',
+        content: ''
+    }
+}
 
 const styles = StyleSheet.create({
         inputStyle:{
